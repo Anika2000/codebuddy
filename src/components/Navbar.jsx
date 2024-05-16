@@ -3,7 +3,6 @@ import React from 'react'
 import { BsQrCode } from "react-icons/bs";
 import ChatHistory from './ChatHistory';
 import Link from 'next/link'
-import { RxAvatar } from "react-icons/rx";
 import { IoSettingsOutline } from "react-icons/io5";
 import Stack from '@mui/material/Stack';
 import { signIn, useSession, signOut } from "next-auth/react";
@@ -19,7 +18,7 @@ const Navbar = () => {
 
         {/* logo */}
         <Link href='/'>
-            <BsQrCode className='text-4xl ml-12'/>
+            <BsQrCode className='text-4xl'/>
         </Link>
 
         {/* redirects */}
@@ -48,14 +47,18 @@ const Navbar = () => {
           </button>
         )}
 
-        <div className="mt-3">
+        {/* {session &&  */}
+         <div className="mt-3">
         <IoSettingsOutline className='text-2xl mt-3 cursor-pointer'/>
         </div>
+        {/* } */}
 
         {/* Chathistory */}
+        {/* {session &&  */}
         <div>
             <ChatHistory />
         </div>
+        {/* } */}
         </Stack>
         
       </div>
