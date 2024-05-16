@@ -8,9 +8,7 @@ const handler = NextAuth({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
     }),
-    // ...add more providers here
   ],
-  //we need the username for the posts so we have this callback
   callbacks: {
     async session({ session, token }) {
       session.user.username = session.user.name
