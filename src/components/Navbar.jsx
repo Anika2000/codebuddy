@@ -18,7 +18,7 @@ const Navbar = () => {
 
         {/* logo */}
         <Link href='/'>
-            <BsQrCode className='text-4xl'/>
+            <BsQrCode className='text-2xl ml-2 mt-1 text-white'/>
         </Link>
 
         {/* redirects */}
@@ -49,7 +49,7 @@ const Navbar = () => {
 
         {/* {session &&  */}
          <div className="mt-3">
-        <IoSettingsOutline className='text-2xl mt-3 cursor-pointer'/>
+        <IoSettingsOutline className='text-2xl mt-1 cursor-pointer text-white'/>
         </div>
         {/* } */}
 

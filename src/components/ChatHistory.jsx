@@ -7,15 +7,15 @@ const Chathistory = () => {
     <>
     <Box
         sx={{
-          width: 45,
-          height: 45,
+          width: 30,
+          height: 30,
           borderRadius: 2,
           bgcolor: 'black',
           border: '1px solid white',
           display: 'flex',
           '&:hover': {
             cursor: 'pointer',
-          },
+          }, 
           
         }}
       >
