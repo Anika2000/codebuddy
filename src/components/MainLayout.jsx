@@ -8,11 +8,11 @@ const MainLayout = ({ childOne, childTwo }) => {
       className="split"
       sizes={[70, 30]} 
       minSize={100}
-      gutterSize={10}
+      gutterSize={5}
       direction="horizontal"
     >
       <div className="pane">{childOne}</div>
-      <div className="pane bg-white">{childTwo}</div>
+      <div className="pane bg-black">{childTwo}</div>
     </Split>
   );
 };
