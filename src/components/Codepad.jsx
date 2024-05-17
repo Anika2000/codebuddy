@@ -3,6 +3,7 @@
 import React from 'react';
 import Editor from '@monaco-editor/react';
 import MainLayout from './MainLayout';
+import Chatbot from './Chatbot';
 
 const Codepad = () => {
   return (
@@ -15,7 +16,8 @@ const Codepad = () => {
           theme="vs-dark" 
         />
       } 
-      childTwo={<div>Chatbot</div>} 
+      // childTwo={<div>Chatbot</div>} 
+      childTwo={<Chatbot />}
     />
   );
 };
