@@ -1,18 +1,21 @@
-import React from 'react'
+import React from 'react';
+import Split from 'react-split';
+import '../styles/styles.css';
 
-const MainLayout = ({childOne, childTwo}) => {
+const MainLayout = ({ childOne, childTwo }) => {
   return (
-    <>
-    <main className="grid grid-cols-1 md:grid-cols-5 mx-auto">
-        <div className="col-span-4">
-            {childOne}
-        </div>
-        <div className="col-span-1">
-            {childTwo}
-        </div>
-    </main>
-    </>
-  )
-}
+    <Split
+      className="split"
+      sizes={[70, 30]} 
+      minSize={100}
+      gutterSize={10}
+      direction="horizontal"
+    >
+      <div className="pane">{childOne}</div>
+      <div className="pane bg-white">{childTwo}</div>
+    </Split>
+  );
+};
 
-export default MainLayout
+export default MainLayout;
+
