@@ -37,13 +37,10 @@ const Chatbot = () => {
           className="chat-input"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+            onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
           placeholder="Type a message..."
         />
-        {/* <button className="chat-send-button" onClick={sendMessage}>
-          Send
-        </button> */}
-        <IoArrowUpCircleOutline className='h-10 w-10'/>
+        <IoArrowUpCircleOutline className='h-10 w-10 cursor-pointer send-icon text-black' onClick={sendMessage}/>
 
       </div>
     </div>

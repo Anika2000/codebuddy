@@ -2,7 +2,8 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-    background-color: #0f172a;
+    /* background-color: #0f172a; */
+    background-color: #E5E5CB ;
     border: 1px solid #ccc;
     border-radius: 8px;
     overflow: hidden;
@@ -25,13 +26,13 @@
   
   .chat-message.user {
     align-self: flex-end;
-    background-color: #007bff;
-    color: white;
+    background-color: #E6DCB8;
+    color: black;
   }
   
   .chat-message.bot {
     align-self: flex-start;
-    background-color: #e9e9eb;
+    background-color: #c3c877;
     color: black;
   }
   
@@ -39,7 +40,8 @@
     display: flex;
     padding: 10px;
     border-top: 1px solid #ccc;
-    background-color: #1e293b;
+    /* background-color: #1e293b; */
+    background-color: #F5F5DC;
     border: 1px solid #ccc;
     border-radius: 50px;
     overflow: hidden;
@@ -49,14 +51,17 @@
   }
   
   .chat-input {
+    color: black;
     flex: 1;
     padding: 10px;
     /* border: 1px solid #ccc; */
     border-radius: 4px;
     margin-right: 10px;
-    background-color: #1e293b;
+    /* background-color: #1e293b; */
+    background-color: #F5F5DC;
     border: none;
     outline: none;
+    
     
   }
   
@@ -71,5 +76,13 @@
   
   .chat-send-button:hover {
     background-color: #0056b3;
+  }
+  
+  .send-icon {
+    transition: transform 0.3s ease-in-out; /* Add transition effect for transform */
+  }
+  
+  .send-icon:hover {
+    transform: scale(1.2); /* Scale the icon on hover */
   }
   
