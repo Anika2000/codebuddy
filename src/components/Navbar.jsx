@@ -44,11 +44,6 @@ const Navbar = () => {
         <Stack direction="row" spacing={2}>
         {session ? (
           <div className="flex gap-2 items-center">
-            <IoMdAddCircleOutline
-              className="text-2xl cursor-pointer transform hover:scale-125 
-              transition duration-300 hover:text-red-600"
-              onClick={() => setIsOpen(true)}
-            />
             <img
               src={session.user.image}
               alt={session.user.name}
