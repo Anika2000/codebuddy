@@ -10,6 +10,11 @@ import { languageOptions } from "../constants/languageOptions";
 import { useState } from 'react'
 import LanguagesDropdown from './LanguageDropdown';
 
+import { FaRegShareSquare } from "react-icons/fa";
+import ModalLayout from './ModalLayout';
+
+
+
 const Navbar = () => {
     const { data: session } = useSession();
     const [language, setLanguage] = useState(languageOptions[0]);
@@ -30,6 +35,8 @@ const Navbar = () => {
             <BsQrCode className='text-2xl ml-2 text-white'/>
         </Link>
         <LanguagesDropdown onSelectChange={onSelectChange} />
+        <ModalLayout />
+        <FaRegShareSquare className='text-2xl ml-2 cursor-pointer'/>
         </Stack>
        
 
