@@ -7,20 +7,23 @@ import { IoSettingsOutline } from "react-icons/io5";
 import Stack from '@mui/material/Stack';
 import { signIn, useSession, signOut } from "next-auth/react";
 import { languageOptions } from "../constants/languageOptions";
-import { useState } from 'react'
+import { useState, useContext  } from 'react'
 import LanguagesDropdown from './LanguageDropdown';
 
 import { FaRegShareSquare } from "react-icons/fa";
 import ModalLayout from './ModalLayout';
+import AppContext from './AppContext';
 
 
 
 const Navbar = () => {
     const { data: session } = useSession();
     const [language, setLanguage] = useState(languageOptions[0]);
+    const { value, setValue } = useContext(AppContext);
 
     const onSelectChange = (sl) => {
       setLanguage(sl);
+      setValue(sl);
     };
 
 
