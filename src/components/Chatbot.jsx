@@ -12,7 +12,7 @@ const Chatbot = () => {
     if (input.trim()) {
       setMessages([...messages, { text: input, sender: 'user' }]);
       setInput('');
-      // Here you could also add the logic to get a response from your bot
+      // response from bot
       setTimeout(() => {
         setMessages(prevMessages => [
           ...prevMessages,

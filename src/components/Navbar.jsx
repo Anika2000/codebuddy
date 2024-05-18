@@ -6,10 +6,18 @@ import Link from 'next/link'
 import { IoSettingsOutline } from "react-icons/io5";
 import Stack from '@mui/material/Stack';
 import { signIn, useSession, signOut } from "next-auth/react";
-
+import { languageOptions } from "../constants/languageOptions";
+import { useState } from 'react'
+import LanguagesDropdown from './LanguageDropdown';
 
 const Navbar = () => {
     const { data: session } = useSession();
+    const [language, setLanguage] = useState(languageOptions[0]);
+
+    const onSelectChange = (sl) => {
+      setLanguage(sl);
+    };
+
 
   return (
     <>
@@ -17,9 +25,13 @@ const Navbar = () => {
       <div className='flex justify-between'>
 
         {/* logo */}
+        <Stack direction="row" spacing={2}>
         <Link href='/'>
-            <BsQrCode className='text-2xl ml-2 mt-1 text-white'/>
+            <BsQrCode className='text-2xl ml-2 text-white'/>
         </Link>
+        <LanguagesDropdown onSelectChange={onSelectChange} />
+        </Stack>
+       
 
         {/* redirects */}
         <Stack direction="row" spacing={2}>
