@@ -31,6 +31,8 @@ const CodeEditor = ({
       // Send the new code to the server via WebSocket
       if (socket && socket.readyState === WebSocket.OPEN) {
         console.log("do i come here?")
+       //sending a message to our server
+       //routing.py receive will listen to incoming messages from my client here
         socket.send(JSON.stringify({ type: 'code_change', code: newValue }));
         console.log('Sent message:', newValue);
       }
