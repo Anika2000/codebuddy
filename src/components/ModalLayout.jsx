@@ -5,6 +5,7 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import { MdGroupAdd } from "react-icons/md";
+import { useState } from 'react';
 
 const style = {
     position: 'absolute',
@@ -19,10 +20,17 @@ const style = {
   };
 
 
-const ModalLayout = ({name}) => {
+const ModalLayout = ({name, onJoin}) => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [roomId, setRoomId] = useState('');
+
+    const handleJoinClick = () => {
+      e.preventDefault();
+      onJoin(roomId);
+    };
+
   
   return (
     <div>
@@ -51,6 +59,8 @@ const ModalLayout = ({name}) => {
             Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
           </Typography> */}
   <div className='flex'>
+
+  <form onSubmit={handleJoinClick}>
   <input
     type="text"
     style={{
@@ -61,12 +71,13 @@ const ModalLayout = ({name}) => {
       boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.1)',
       backgroundColor: 'black',
     }}
+    value={roomId}
+    onChange={(e) => setRoomId(e.target.value)}
+    required
   />
-  <button className='bg-[#f472b6] ml-2 hover:bg-rose-200 text-white font-bold py-2 px-4 rounded'>
-  Join
-</button>
-
-  </div>
+  <button className='bg-[#f472b6] ml-2 hover:bg-rose-200 text-white font-bold py-2 px-4 rounded' type="submit">Join</button>
+</form>
+</div>
   
         </Box>
       </Fade>

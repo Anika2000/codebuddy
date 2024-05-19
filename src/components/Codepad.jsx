@@ -16,7 +16,7 @@ const Codepad = () => {
         //   defaultValue="// Start Coding!" 
         //   theme="vs-dark" 
         // />
-        <CodeEditor code="// Start Coding!" />
+        <CodeEditor code="// Start Coding!"/>
       } 
       // childTwo={<div>Chatbot</div>} 
       childTwo={<Chatbot />}

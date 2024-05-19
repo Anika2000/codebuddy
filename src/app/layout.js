@@ -5,6 +5,7 @@ import SessionWrapper from "@/components/SessionWrapper";
 import { AppProvider } from '@/components/AppContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Codepad from "@/components/Codepad";
 
 const inter = Inter({ subsets: ["latin"] });
 

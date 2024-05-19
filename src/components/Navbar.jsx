@@ -7,13 +7,14 @@ import { IoSettingsOutline } from "react-icons/io5";
 import Stack from '@mui/material/Stack';
 import { signIn, useSession, signOut } from "next-auth/react";
 import { languageOptions } from "../constants/languageOptions";
-import { useState, useContext  } from 'react'
+import { useState, useContext, useEffect  } from 'react'
 import LanguagesDropdown from './LanguageDropdown';
 
 import { FaRegShareSquare } from "react-icons/fa";
 import ModalLayout from './ModalLayout';
 import AppContext from './AppContext';
 import { toast } from 'react-toastify'
+import Codepad from './Codepad';
 
 
 
@@ -21,15 +22,23 @@ const Navbar = () => {
     const { data: session } = useSession();
     const [language, setLanguage] = useState(languageOptions[0]);
     const { value, setValue } = useContext(AppContext);
+    const [joinedRoomId, setJoinedRoomId] = useState('');
 
     const onSelectChange = (sl) => {
       setLanguage(sl);
       setValue(sl);
+
+      // note that value here is one previous state for some reason
     };
 
+    // Callback function to receive data from ModalLayout
+  const handleJoin = (roomId) => {
+    setJoinedRoomId(roomId);
+    // You can perform any other actions here based on the received data
+  };
 
     const [roomId, setRoomId] = useState(null);
-    const userId = session?.user?.id || 'dummy-user-id';
+    const userId = session?.user?.uid || 'dummy-user-id';
 
     const handleShareClick = async () => {
         try {
@@ -70,7 +79,7 @@ const Navbar = () => {
             <BsQrCode className='text-2xl ml-2 text-white'/>
         </Link>
         <LanguagesDropdown onSelectChange={onSelectChange} />
-        <ModalLayout name={session?.user?.name}/>
+        <ModalLayout name={session?.user?.name} onJoin={handleJoin}/>
         <FaRegShareSquare className='text-2xl ml-2 cursor-pointer hover:scale-125 
               transition-transform duration-200 ease-out'
         onClick={handleShareClick}/>
@@ -115,6 +124,7 @@ const Navbar = () => {
         
       </div>
     </div>
+    <Codepad/>
     </>
   )
 }
