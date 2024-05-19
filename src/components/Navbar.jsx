@@ -70,7 +70,7 @@ const Navbar = () => {
             <BsQrCode className='text-2xl ml-2 text-white'/>
         </Link>
         <LanguagesDropdown onSelectChange={onSelectChange} />
-        <ModalLayout />
+        <ModalLayout name={session?.user?.name}/>
         <FaRegShareSquare className='text-2xl ml-2 cursor-pointer hover:scale-125 
               transition-transform duration-200 ease-out'
         onClick={handleShareClick}/>
