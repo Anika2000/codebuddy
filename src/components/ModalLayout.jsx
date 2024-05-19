@@ -27,7 +27,8 @@ const ModalLayout = () => {
   
   return (
     <div>
-    <MdGroupAdd className='text-2xl ml-2 cursor-pointer' onClick={handleOpen}/>
+    <MdGroupAdd className='text-2xl ml-2 cursor-pointer hover:scale-125 
+              transition-transform duration-200 ease-out' onClick={handleOpen}/>
     {/* <Button onClick={handleOpen}>Open modal</Button> */}
     <Modal
       aria-labelledby="transition-modal-title"
