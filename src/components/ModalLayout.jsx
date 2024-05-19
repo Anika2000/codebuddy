@@ -6,6 +6,10 @@ import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import { MdGroupAdd } from "react-icons/md";
 import { useState } from 'react';
+import { FaRegShareSquare } from "react-icons/fa";
+
+
+
 
 const style = {
     position: 'absolute',
@@ -26,9 +30,10 @@ const ModalLayout = ({name, onJoin}) => {
     const handleClose = () => setOpen(false);
     const [roomId, setRoomId] = useState('');
 
-    const handleJoinClick = () => {
+    const handleJoinClick = (e) => {
       e.preventDefault();
       onJoin(roomId);
+      setOpen(false);
     };
 
   
