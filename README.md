@@ -1,7 +1,8 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## About
-A collaborative code editor with chatbot for easy debugging.
+A collaborative code editor with chatbot for easy debugging.  
+The backend repo: https://github.com/Anika2000/codebuddy-backend 
 
 ## Architecture Design
 ![alt text](images/image.png)
