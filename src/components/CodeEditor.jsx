@@ -1,5 +1,5 @@
 "use client";
-import React, {useState, useContext, useEffect, useCallback} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import Editor from '@monaco-editor/react';
 import AppContext from './AppContext';
 import ModalLayout from './ModalLayout';
@@ -9,7 +9,6 @@ import Link from 'next/link'
 import { IoSettingsOutline } from "react-icons/io5";
 import Stack from '@mui/material/Stack';
 import { signIn, useSession, signOut } from "next-auth/react";
-import { languageOptions } from "../constants/languageOptions";
 import MainLayout from './MainLayout';
 import { FaRegShareSquare } from "react-icons/fa";
 import '../styles/button.css';
@@ -23,6 +22,7 @@ import Chatbot from './Chatbot';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import Collapse from '@mui/material/Collapse';
+import LanguageDropdown from './LanguageDropdown';
 
 
 
@@ -32,7 +32,27 @@ const CodeEditor = ({code = "#start coding"}) => {
 // CodeEditor.js
 const [executionResult, setExecutionResult] = useState("");
 const [showSuccessAlert, setShowSuccessAlert] = useState(false);
-  const [showErrorAlert, setShowErrorAlert] = useState(false);;
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+
+
+const { data: session } = useSession();
+const [language, setLanguage] = useState('python');
+const { value, setValue } = useContext(AppContext);
+const [joinedRoomId, setJoinedRoomId] = useState(null);
+
+const [editorCode, setEditorCode] = useState(code);
+  
+ const [socket, setSocket] = useState(null);
+
+  const [roomId, setRoomId] = useState(null);
+  const userId = session?.user?.uid || 'dummy-user-id';
+
+
+
+  const onSelectChange = (sl) => {
+    setLanguage(sl);
+  };
+
 
 
 const runCode = async () => {
@@ -50,11 +70,16 @@ const runCode = async () => {
       const data = await response.json();
       setExecutionResult(data.output);
       console.log(data.output)
-      if (data.output.trim() === '') {
-        setShowSuccessAlert(true);
-      } else {
+      if (data.output.includes('Error') || data.output.includes('error')) {
         setShowErrorAlert(true);
+      } else {
+        setShowSuccessAlert(true);
       }
+    }else if (response.status === 400) {
+      const data = await response.json();
+      console.log(data.output); // Log the error message
+      setExecutionResult(data.output);
+      setShowErrorAlert(true);
     } else {
       console.error('Failed to run code');
       setExecutionResult('Error running code');
@@ -66,22 +91,6 @@ const runCode = async () => {
 };
 
 
-const { data: session } = useSession();
-  const [language, setLanguage] = useState('python');
-  const { value, setValue } = useContext(AppContext);
-  const [joinedRoomId, setJoinedRoomId] = useState(null);
-  
-  const [editorCode, setEditorCode] = useState(code);
-    
-   const [socket, setSocket] = useState(null);
-  
-    const [roomId, setRoomId] = useState(null);
-    const userId = session?.user?.uid || 'dummy-user-id';
-
-    const onSelectChange = (sl) => {
-      setLanguage(sl);
-      setValue(sl);
-    };
 
 
     const handleShareClick = async () => {
@@ -212,7 +221,8 @@ const { data: session } = useSession();
         onClick={handleShareClick}/>}
 
         </Stack>
-
+        {session && <LanguageDropdown selectChange={onSelectChange}/>}
+      
         <Stack direction="row" spacing={2}>
         <button onClick={runCode} className="run-button">Run Code</button>
 
@@ -275,7 +285,8 @@ const { data: session } = useSession();
       
       <Editor
         height="100vh"
-        language="python"
+        // language="python"
+        language={language}
         value={editorCode}
         theme= "vs-dark"
         onChange={handleEditorChange}
