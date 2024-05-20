@@ -165,9 +165,9 @@ const CodeEditor = ({code = "//whateverhere"}) => {
         </Link>
         <LanguagesDropdown onSelectChange={onSelectChange} />
         <ModalLayout name='Join Room' onJoin={handleJoin}/>
-        <FaRegShareSquare className='text-2xl ml-2 cursor-pointer hover:scale-125 
+        {session && <FaRegShareSquare className='text-2xl ml-2 cursor-pointer hover:scale-125 
               transition-transform duration-200 ease-out'
-        onClick={handleShareClick}/>
+        onClick={handleShareClick}/>}
 
         </Stack>
 
@@ -193,8 +193,8 @@ const CodeEditor = ({code = "//whateverhere"}) => {
 
         {/* {session &&  */}
          <div className="mt-3">
-        <IoSettingsOutline className='text-2xl mt-1 cursor-pointer text-white
-        hover:scale-125 transition-transform duration-200 ease-out'/>
+        {session && <IoSettingsOutline className='text-2xl mt-1 cursor-pointer text-white
+        hover:scale-125 transition-transform duration-200 ease-out'/>}
         </div>
         {/* } */}
 
