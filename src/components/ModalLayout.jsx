@@ -6,7 +6,6 @@ import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import { MdGroupAdd } from "react-icons/md";
 import { useState } from 'react';
-import { FaRegShareSquare } from "react-icons/fa";
 
 
 
@@ -39,7 +38,7 @@ const ModalLayout = ({name, onJoin}) => {
   
   return (
     <div>
-    <MdGroupAdd className='text-2xl ml-2 cursor-pointer hover:scale-125 
+    <MdGroupAdd className='text-2xl cursor-pointer hover:scale-125 
               transition-transform duration-200 ease-out' onClick={handleOpen}/>
     {/* <Button onClick={handleOpen}>Open modal</Button> */}
     <Modal

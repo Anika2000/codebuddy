@@ -1,5 +1,5 @@
 "use client";
-import React, {useState, useContext, useEffect} from 'react'
+import React, {useState, useContext, useEffect, useCallback} from 'react'
 import Editor from '@monaco-editor/react';
 import AppContext from './AppContext';
 import ModalLayout from './ModalLayout';
@@ -10,10 +10,9 @@ import { IoSettingsOutline } from "react-icons/io5";
 import Stack from '@mui/material/Stack';
 import { signIn, useSession, signOut } from "next-auth/react";
 import { languageOptions } from "../constants/languageOptions";
-import LanguagesDropdown from './LanguageDropdown';
 import MainLayout from './MainLayout';
 import { FaRegShareSquare } from "react-icons/fa";
-
+import '../styles/button.css';
 
 
 import { toast } from 'react-toastify'
@@ -21,10 +20,54 @@ import Chatbot from './Chatbot';
 
 
 
-const CodeEditor = ({code = "//whateverhere"}) => {
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Collapse from '@mui/material/Collapse';
 
-  const { data: session } = useSession();
-  const [language, setLanguage] = useState(languageOptions[0]);
+
+
+const CodeEditor = ({code = "#start coding"}) => {
+
+
+// CodeEditor.js
+const [executionResult, setExecutionResult] = useState("");
+const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);;
+
+
+const runCode = async () => {
+  console.log(language)
+  console.log(editorCode)
+  try {
+    const response = await fetch('http://127.0.0.1:8000/codebuddy/run-code/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ language: language, code: editorCode }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      setExecutionResult(data.output);
+      console.log(data.output)
+      if (data.output.trim() === '') {
+        setShowSuccessAlert(true);
+      } else {
+        setShowErrorAlert(true);
+      }
+    } else {
+      console.error('Failed to run code');
+      setExecutionResult('Error running code');
+    }
+  } catch (error) {
+    console.error('Network error:', error);
+    setExecutionResult('Network error');
+  }
+};
+
+
+const { data: session } = useSession();
+  const [language, setLanguage] = useState('python');
   const { value, setValue } = useContext(AppContext);
   const [joinedRoomId, setJoinedRoomId] = useState(null);
   
@@ -163,7 +206,6 @@ const CodeEditor = ({code = "//whateverhere"}) => {
         <Link href='/'>
             <BsQrCode className='text-2xl ml-2 text-white'/>
         </Link>
-        <LanguagesDropdown onSelectChange={onSelectChange} />
         <ModalLayout name='Join Room' onJoin={handleJoin}/>
         {session && <FaRegShareSquare className='text-2xl ml-2 cursor-pointer hover:scale-125 
               transition-transform duration-200 ease-out'
@@ -172,6 +214,9 @@ const CodeEditor = ({code = "//whateverhere"}) => {
         </Stack>
 
         <Stack direction="row" spacing={2}>
+        <button onClick={runCode} className="run-button">Run Code</button>
+
+
         {session ? (
           <div className="flex gap-2 items-center">
             <img
@@ -207,14 +252,35 @@ const CodeEditor = ({code = "//whateverhere"}) => {
         </Stack>
         </div>
     </div>
+    <Collapse in={showSuccessAlert}>
+    <Alert
+      severity="success"
+      action={<button onClick={() => setShowSuccessAlert(false)}>Close</button>}
+    >
+      <AlertTitle>Execution Successful</AlertTitle>
+      {executionResult}
+    </Alert>
+  </Collapse>
+
+  {/* Error Alert */}
+  <Collapse in={showErrorAlert}>
+    <Alert
+      severity="error"
+      action={<button onClick={() => setShowErrorAlert(false)}>Close</button>}
+    >
+      <AlertTitle>Execution Error</AlertTitle>
+      {executionResult}
+    </Alert>
+  </Collapse>
       
       <Editor
         height="100vh"
-        language={value}
+        language="python"
         value={editorCode}
         theme= "vs-dark"
         onChange={handleEditorChange}
     />
+
     </>}
       childTwo={<Chatbot />}
       />

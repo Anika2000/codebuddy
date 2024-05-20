@@ -1,0 +1,14 @@
+.run-button {
+    background-color: #ff3333; /* Red background */
+    color: #fff; /* White text */
+    border: 2px solid #ff3333; /* Red border */
+    border-radius: 20px; /* Rounded corners */
+    padding-right: 10px; /* Padding */
+    padding-left: 10px;
+    cursor: pointer; /* Cursor style */
+    transition: background-color 0.3s, border-radius 0.3s; /* Transition effect */
+  }
+  
+  .run-button:hover {
+    background-color: #ff0000 ; /* Lighter red on hover */
+  }
