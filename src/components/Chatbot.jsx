@@ -8,23 +8,51 @@ const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
 
-  const sendMessage = () => {
+  const sendMessage = async () => {
     if (input.trim()) {
-      setMessages([...messages, { text: input, sender: 'user' }]);
+      const newMessage = { text: input, sender: 'user' };
+      setMessages([...messages, newMessage]);
       setInput('');
       // response from bot
-      setTimeout(() => {
-        setMessages(prevMessages => [
-          ...prevMessages,
-          { text: 'This is a bot response!', sender: 'bot' }
-        ]);
-      }, 1000); // Simulate a delay for bot response
+      try {
+        const response = await fetch('/api/chat', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ messages: [{ role: 'user', content: input }] })
+  
+        });
+        const data = await response.json();
+        if (response.ok) {
+          setMessages(prevMessages => [
+            ...prevMessages,
+            { text: data.response.content, sender: 'bot' }
+          ]);
+        }else {
+          setMessages(prevMessages => [
+            ...prevMessages,
+            { text: 'An error occurred', sender: 'bot' }
+          ]);
+        }
+
+      }catch (error) {
+        console.error('Error:', error);
+      }
     }
   };
-
+ 
   return (
-    <div className="chat-container">
-      <div className="chat-messages">
+    <div className="chat-container" style={{
+      position: 'sticky',
+      top: 0,
+      bottom: 0,
+      right: 0,
+      height: '100vh',
+      maxHeight: '100vh',
+      overflowY: 'auto'
+    }}>
+      <div className="chat-messages" style={{ overflowY: 'auto' }}>
         {messages.map((msg, index) => (
           <div key={index} className={`chat-message ${msg.sender}`}>
             {msg.text}
