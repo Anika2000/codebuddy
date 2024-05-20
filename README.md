@@ -1,5 +1,11 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## About
+A collaborative code editor with chatbot for easy debugging.
+
+## Architecture Design
+![alt text](images/image.png)
+
 ## Getting Started
 
 First, run the development server:
